@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c4hfhaga65isl" path="res://Levels/crank.tscn" id="8_crank"]
 [ext_resource type="PackedScene" path="res://Levels/door.tscn" id="9_door"]
 [ext_resource type="PackedScene" uid="uid://dutskg7pjqu2n" path="res://Enemy/dino_green.tscn" id="12_lx7qo"]
+[ext_resource type="PackedScene" uid="uid://6v73y3pnci1l" path="res://Enemy/dino_blue.tscn" id="13_dkv23"]
 [ext_resource type="AudioStream" uid="uid://c2ig5iejgfljh" path="res://Audio/music_savanna.wav" id="13_music"]
 [ext_resource type="Script" uid="uid://cic8seybtqo8w" path="res://Scripts/camera_rig.gd" id="14_cam"]
 [ext_resource type="PackedScene" uid="uid://rfxw0r3nbp4c" path="res://Levels/gem.tscn" id="15_gem"]
@@ -673,3 +674,8 @@ position = Vector2(1246, 187)
 [node name="DinoGreen2" parent="Enemies" unique_id=1049255702 instance=ExtResource("12_lx7qo")]
 position = Vector2(71, 101)
 patrol_time = 0.8
+
+[node name="DinoBlue" parent="Enemies" unique_id=597677160 instance=ExtResource("13_dkv23")]
+position = Vector2(850, 144)
+hop_cooldown = 1.2
+patrol_time = 2.0

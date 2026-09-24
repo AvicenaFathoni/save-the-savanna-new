@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://6v73y3pnci1l"]
 
 [ext_resource type="Texture2D" uid="uid://y7vegibls7xa" path="res://Assets/Enemy/DinoBlue.png" id="1_03ep8"]
+[ext_resource type="Script" uid="uid://bbhm46b1pdbqj" path="res://Scripts/dino_blue.gd" id="2_blue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(20, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_il2y8"]
 atlas = ExtResource("1_03ep8")
@@ -104,10 +108,35 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=597677160]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(22, 20)
+
+[node name="DinoBlue" type="CharacterBody2D" unique_id=597677160]
+collision_layer = 8
+script = ExtResource("2_blue")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=50619330]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_body")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1274282182]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_igo0i")
-animation = &"hurt"
+animation = &"walk"
 autoplay = "walk"
-frame_progress = 0.16963884
+
+[node name="PatrolTimer" type="Timer" parent="." unique_id=991230512]
+wait_time = 3.0
+
+[node name="HopTimer" type="Timer" parent="." unique_id=882410522]
+wait_time = 0.9
+one_shot = true
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=774192332]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtBox" unique_id=412773902]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_hurt")
