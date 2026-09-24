@@ -635,10 +635,10 @@ scale = Vector2(0.97535837, 1.5915602)
 position = Vector2(1165, -48)
 
 [node name="Player1" parent="." unique_id=568925249 instance=ExtResource("1_ormqy")]
-position = Vector2(241, 145)
+position = Vector2(241, 68)
 
 [node name="Player2" parent="." unique_id=698095659 instance=ExtResource("4_i4ak4")]
-position = Vector2(239, 101)
+position = Vector2(324, 71)
 
 [node name="GameCamera" type="Camera2D" parent="." unique_id=554821907]
 limit_smoothed = true
@@ -683,3 +683,11 @@ patrol_time = 2.0
 
 [node name="Spike" parent="." unique_id=768194127 instance=ExtResource("14_x458k")]
 position = Vector2(660, 189)
+
+[node name="Spike2" parent="." unique_id=1731244031 instance=ExtResource("14_x458k")]
+position = Vector2(1246, 64)
+rotation = -1.5707964
+
+[node name="Spike3" parent="." unique_id=335958898 instance=ExtResource("14_x458k")]
+position = Vector2(1403.9999, 190.99997)
+rotation = -0.47852087

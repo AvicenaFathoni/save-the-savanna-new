@@ -93,19 +93,18 @@ func _build_hearts_ui(layer: CanvasLayer) -> void:
 		if pname == "Player1":
 			box.position = Vector2(8, 28)
 		else:
-			box.position = Vector2(8, 48)
+			# top right for meerkat - moved left to ensure 3 hearts visible (was 417 clipped)
+			box.position = Vector2(400, 28)
 		layer.add_child(box)
 		_hearts[pname] = []
 		for i in range(3):
 			var h = heart_scene.instantiate()
-			# heart.tscn root is AnimatedSprite2D, wrap in Control for HBox
 			var wrap := Control.new()
 			wrap.custom_minimum_size = Vector2(17, 17)
 			h.position = Vector2(8.5, 8.5)
 			wrap.add_child(h)
 			box.add_child(wrap)
 			_hearts[pname].append(h)
-		# label for player name
 		var lbl := Label.new()
 		lbl.text = pname
 		lbl.add_theme_font_size_override("font_size", 7)
@@ -114,7 +113,8 @@ func _build_hearts_ui(layer: CanvasLayer) -> void:
 		if pname == "Player1":
 			lbl.position = Vector2(70, 30)
 		else:
-			lbl.position = Vector2(70, 50)
+			lbl.position = Vector2(340, 30)
+			lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		layer.add_child(lbl)
 
 func _update_hearts(pname: String) -> void:
@@ -137,7 +137,7 @@ func _update_hearts(pname: String) -> void:
 				if hp < i:
 					h.frame = 4
 
-func take_damage(player: Node, amount: int = 1) -> void:
+func take_damage(player: Node, amount: int = 1, from_pos: Vector2 = Vector2.INF) -> void:
 	var pname = String(player.name)
 	if not _health.has(pname):
 		return
@@ -146,8 +146,17 @@ func take_damage(player: Node, amount: int = 1) -> void:
 	_invuln[pname] = true
 	_health[pname] = maxi(0, _health[pname] - amount)
 	_update_hearts(pname)
-	# flash player
-	if player is CanvasItem:
+	# hurt bounce visuals: jiggle like landing (squash) + dust + blink, no launch
+	if player is CharacterBody2D:
+		var cb := player as CharacterBody2D
+		if cb.has_method("_squash"):
+			cb.call("_squash", 1.3, 0.72)
+		Juice.spawn_dust(self, cb.global_position + Vector2(0, 8))
+		Juice.spawn_hit(self, cb.global_position + Vector2(0, -6))
+		var blink_tween := create_tween().set_loops(4)
+		blink_tween.tween_property(cb, "modulate:a", 0.35, 0.08)
+		blink_tween.tween_property(cb, "modulate:a", 1.0, 0.08)
+	elif player is CanvasItem:
 		var tw := create_tween()
 		tw.tween_property(player, "modulate", Color(1,0.4,0.4,1), 0.08)
 		tw.tween_property(player, "modulate", Color(1,1,1,1), 0.15)

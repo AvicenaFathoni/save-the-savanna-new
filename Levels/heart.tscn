@@ -31,4 +31,4 @@ animations = [{
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" unique_id=515141798]
 sprite_frames = SubResource("SpriteFrames_igo0i")
-animation = &"decrease"
+autoplay = "default"

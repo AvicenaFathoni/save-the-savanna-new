@@ -29,7 +29,7 @@ func _on_body(body: Node) -> void:
 	_can_hit = false
 	var lvl = get_tree().get_first_node_in_group("level")
 	if lvl != null and lvl.has_method("take_damage"):
-		lvl.take_damage(body, damage)
+		lvl.take_damage(body, damage, global_position)
 	elif lvl != null and lvl.has_method("respawn_both"):
 		lvl.respawn_both()
 	get_tree().create_timer(cooldown).timeout.connect(func(): _can_hit = true)
