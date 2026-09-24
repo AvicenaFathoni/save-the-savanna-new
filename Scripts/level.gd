@@ -32,13 +32,25 @@ func _ready() -> void:
 	_banner.text = "LEVEL COMPLETE!"
 	_banner.visible = false
 	_banner.add_theme_font_size_override("font_size", 32)
+	_banner.add_theme_color_override("font_color", Color(1, 0.96, 0.78, 1))
+	_banner.add_theme_color_override("font_outline_color", Color(0.18, 0.1, 0.06, 1))
+	_banner.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.55))
+	_banner.add_theme_constant_override("outline_size", 6)
+	_banner.add_theme_constant_override("shadow_offset_x", 2)
+	_banner.add_theme_constant_override("shadow_offset_y", 2)
 	_banner.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_banner.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	layer.add_child(_banner)
-	# gems HUD (pixel heart style placeholder)
+	# gems HUD
 	_gem_label = Label.new()
 	_gem_label.add_theme_font_size_override("font_size", 14)
+	_gem_label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	_gem_label.add_theme_color_override("font_outline_color", Color(0.12, 0.12, 0.12, 1))
+	_gem_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.45))
+	_gem_label.add_theme_constant_override("outline_size", 4)
+	_gem_label.add_theme_constant_override("shadow_offset_x", 1)
+	_gem_label.add_theme_constant_override("shadow_offset_y", 1)
 	_gem_label.position = Vector2(8, 8)
 	_gem_label.text = ""
 	layer.add_child(_gem_label)
@@ -105,6 +117,9 @@ func _build_pause_ui() -> void:
 	title.text = "PAUSED"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 18)
+	title.add_theme_color_override("font_color", Color(1, 0.96, 0.78, 1))
+	title.add_theme_color_override("font_outline_color", Color(0.18, 0.1, 0.06, 1))
+	title.add_theme_constant_override("outline_size", 5)
 	vbox.add_child(title)
 	_resume_btn = Button.new()
 	_resume_btn.text = "RESUME (ESC)"

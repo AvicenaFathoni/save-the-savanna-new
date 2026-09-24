@@ -8,8 +8,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 480.0
-offset_bottom = 270.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 script = ExtResource("1_menu")
 
 [node name="Bg" type="TextureRect" parent="." unique_id=1001002]
@@ -37,26 +39,41 @@ theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="Center/VBox" unique_id=1001005]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.96, 0.78, 1)
+theme_override_colors/font_outline_color = Color(0.18, 0.1, 0.06, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 18
 text = "SAVE THE SAVANNA"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="Center/VBox" unique_id=1001006]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.12, 0.12, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 8
 text = "Ostrich + Meerkat  |  Co-op Platformer"
 horizontal_alignment = 1
-modulate = Color(0.85, 0.85, 0.85, 1)
 
 [node name="Play" type="Button" parent="Center/VBox" unique_id=1001007]
 custom_minimum_size = Vector2(140, 28)
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.12, 0.12, 0.12, 1)
+theme_override_constants/outline_size = 3
 text = "PLAY"
 focus_mode = 2
 
 [node name="Quit" type="Button" parent="Center/VBox" unique_id=1001008]
 custom_minimum_size = Vector2(140, 28)
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.12, 0.12, 0.12, 1)
+theme_override_constants/outline_size = 3
 text = "QUIT"
 focus_mode = 2
 
