@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://b3d6f2a1dae4d"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://5n5hipa2kf73" path="res://Assets/images/background/background.png" id="2_bg"]
+
+[node name="MainMenu" type="Control" unique_id=1001001]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 480.0
+offset_bottom = 270.0
+script = ExtResource("1_menu")
+
+[node name="Bg" type="TextureRect" parent="." unique_id=1001002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+stretch_mode = 1
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1001003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=1001004]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Center/VBox" unique_id=1001005]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "SAVE THE SAVANNA"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Center/VBox" unique_id=1001006]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Ostrich + Meerkat  |  Co-op Platformer"
+horizontal_alignment = 1
+modulate = Color(0.85, 0.85, 0.85, 1)
+
+[node name="Play" type="Button" parent="Center/VBox" unique_id=1001007]
+custom_minimum_size = Vector2(140, 28)
+layout_mode = 2
+text = "PLAY"
+focus_mode = 2
+
+[node name="Quit" type="Button" parent="Center/VBox" unique_id=1001008]
+custom_minimum_size = Vector2(140, 28)
+layout_mode = 2
+text = "QUIT"
+focus_mode = 2
+
+[connection signal="pressed" from="Center/VBox/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Center/VBox/Quit" to="." method="_on_quit_pressed"]

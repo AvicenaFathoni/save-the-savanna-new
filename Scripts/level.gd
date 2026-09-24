@@ -12,8 +12,12 @@ var _banner: Label
 var gems_total: int = 0
 var gems_collected: int = 0
 var _gem_label: Label
+var _pause_layer: CanvasLayer
+var _pause_panel: Control
+var _resume_btn: Button
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group("level")
 	var p1 := get_node_or_null("Player1")
 	if p1 != null:
@@ -41,8 +45,9 @@ func _ready() -> void:
 	await get_tree().process_frame
 	gems_total = get_tree().get_nodes_in_group("gems").size()
 	_update_gem_hud()
-	# listen for late-spawned gems
 	get_tree().node_added.connect(func(n): if n.is_in_group("gems"): gems_total += 1; _update_gem_hud())
+	# pause overlay (always process when paused)
+	_build_pause_ui()
 
 func _update_gem_hud() -> void:
 	if _gem_label != null:
@@ -79,11 +84,54 @@ func respawn_both() -> void:
 		if p is Node2D:
 			respawn(p)
 
+func _build_pause_ui() -> void:
+	_pause_layer = CanvasLayer.new()
+	_pause_layer.layer = 20
+	_pause_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_pause_layer)
+	_pause_panel = Panel.new()
+	_pause_panel.visible = false
+	_pause_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_pause_panel.modulate.a = 0.92
+	_pause_layer.add_child(_pause_panel)
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_pause_panel.add_child(center)
+	var vbox := VBoxContainer.new()
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_theme_constant_override("separation", 10)
+	center.add_child(vbox)
+	var title := Label.new()
+	title.text = "PAUSED"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 18)
+	vbox.add_child(title)
+	_resume_btn = Button.new()
+	_resume_btn.text = "RESUME (ESC)"
+	_resume_btn.custom_minimum_size = Vector2(160, 28)
+	_resume_btn.pressed.connect(_toggle_pause)
+	vbox.add_child(_resume_btn)
+	var menu_btn := Button.new()
+	menu_btn.text = "MENU"
+	menu_btn.custom_minimum_size = Vector2(160, 28)
+	menu_btn.pressed.connect(func(): get_tree().paused = false; get_tree().change_scene_to_file("res://Levels/main_menu.tscn"))
+	vbox.add_child(menu_btn)
+
+func _toggle_pause() -> void:
+	if _won:
+		return
+	var to_pause = not get_tree().paused
+	get_tree().paused = to_pause
+	_pause_panel.visible = to_pause
+	if to_pause and _resume_btn:
+		_resume_btn.grab_focus()
+
 func on_goal() -> void:
 	if _won:
 		return
 	_won = true
 	_banner.visible = true
+	_banner.text = "LEVEL COMPLETE!\n[Enter] Menu"
 	_banner.modulate.a = 0.0
 	_banner.scale = Vector2(0.6, 0.6)
 	var tw := create_tween().set_parallel(true)
@@ -94,7 +142,16 @@ func on_goal() -> void:
 		if p is Node2D:
 			Juice.spawn_confetti(self, p.global_position + Vector2(0, -16))
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_toggle_pause()
+	if _won and (event.is_action_pressed("ui_accept") or event.is_action_pressed("p1_special") or event.is_action_pressed("p2_interact")):
+		get_tree().paused = false
+		get_tree().change_scene_to_file("res://Levels/main_menu.tscn")
+
 func _physics_process(_delta: float) -> void:
+	if get_tree().paused:
+		return
 	for p in get_tree().get_nodes_in_group("players"):
 		if p is Node2D and p.global_position.y > 500.0:
 			respawn(p)
