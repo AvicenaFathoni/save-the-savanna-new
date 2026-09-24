@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://rfxw0r3nbp4c"]
+
+[ext_resource type="Script" uid="uid://pnra25woxtkp" path="res://Scripts/gem.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://w5t81jfca3xx" path="res://Assets/gem.png" id="2"]
+
+[sub_resource type="CircleShape2D" id="shape"]
+radius = 9.0
+
+[sub_resource type="AtlasTexture" id="g0"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="g1"]
+atlas = ExtResource("2")
+region = Rect2(15, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="g2"]
+atlas = ExtResource("2")
+region = Rect2(30, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="g3"]
+atlas = ExtResource("2")
+region = Rect2(45, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="g4"]
+atlas = ExtResource("2")
+region = Rect2(60, 0, 15, 13)
+
+[sub_resource type="SpriteFrames" id="sf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("g2")
+}, {
+"duration": 1.0,
+"texture": SubResource("g3")
+}, {
+"duration": 1.0,
+"texture": SubResource("g4")
+}],
+"loop": 1,
+"name": &"spin",
+"speed": 8.0
+}]
+
+[node name="Gem" type="Area2D" unique_id=465127780]
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=871514542]
+shape = SubResource("shape")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1485871570]
+sprite_frames = SubResource("sf")
+animation = &"spin"
+autoplay = "spin"
+frame_progress = 0.11904749

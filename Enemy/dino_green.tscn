@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://dutskg7pjqu2n"]
+
+[ext_resource type="Texture2D" uid="uid://hl6hlvtwimuy" path="res://Assets/Enemy/DinoSprites - vita.png" id="1_28qix"]
+[ext_resource type="Script" uid="uid://cpbjir46clpfc" path="res://Scripts/dino_green.gd" id="2_dino"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5nno"]
+size = Vector2(20, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28qix"]
+atlas = ExtResource("1_28qix")
+region = Rect2(336, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsir2"]
+atlas = ExtResource("1_28qix")
+region = Rect2(360, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o04y0"]
+atlas = ExtResource("1_28qix")
+region = Rect2(384, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2mer"]
+atlas = ExtResource("1_28qix")
+region = Rect2(408, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmqfr"]
+atlas = ExtResource("1_28qix")
+region = Rect2(432, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgm0m"]
+atlas = ExtResource("1_28qix")
+region = Rect2(456, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruhtx"]
+atlas = ExtResource("1_28qix")
+region = Rect2(480, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgg8r"]
+atlas = ExtResource("1_28qix")
+region = Rect2(504, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kso0a"]
+atlas = ExtResource("1_28qix")
+region = Rect2(528, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bwwb"]
+atlas = ExtResource("1_28qix")
+region = Rect2(552, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4h4ci"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28qix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsir2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o04y0")
+}],
+"loop": 1,
+"name": &"hurt",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2mer")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmqfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgm0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruhtx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgg8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kso0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bwwb")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="HurtShape"]
+size = Vector2(22, 14)
+
+[node name="DinoGreen" type="CharacterBody2D" unique_id=1320702292]
+collision_layer = 8
+script = ExtResource("2_dino")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=50619330]
+position = Vector2(0, 2)
+scale = Vector2(1.7, 1.7)
+shape = SubResource("RectangleShape2D_n5nno")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=783000443]
+position = Vector2(0, -2)
+scale = Vector2(1.7, 1.7)
+sprite_frames = SubResource("SpriteFrames_4h4ci")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.26301542
+
+[node name="PatrolTimer" type="Timer" parent="." unique_id=991230512]
+wait_time = 3.0
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=774192331]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtBox" unique_id=412773901]
+position = Vector2(0, 2)
+scale = Vector2(1.7, 1.7)
+shape = SubResource("HurtShape")
+debug_color = Color(0.85892373, 0.22295275, 0.71574336, 0.41960785)

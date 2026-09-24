@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://6v73y3pnci1l"]
+
+[ext_resource type="Texture2D" uid="uid://y7vegibls7xa" path="res://Assets/Enemy/DinoBlue.png" id="1_03ep8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il2y8"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(336, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jcmp"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(360, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hqkw"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(384, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia8g4"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(264, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pscjj"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(288, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t75c3"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(408, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6xlg"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(432, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhxel"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(456, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn807"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(480, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tu6gx"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(504, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txxw8"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(528, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_at8w3"]
+atlas = ExtResource("1_03ep8")
+region = Rect2(552, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_igo0i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il2y8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jcmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hqkw")
+}],
+"loop": 1,
+"name": &"hurt",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ia8g4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pscjj")
+}],
+"loop": 1,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t75c3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6xlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhxel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vn807")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tu6gx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txxw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_at8w3")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=597677160]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1274282182]
+sprite_frames = SubResource("SpriteFrames_igo0i")
+animation = &"hurt"
+autoplay = "walk"
+frame_progress = 0.16963884
