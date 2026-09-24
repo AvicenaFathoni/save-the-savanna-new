@@ -15,6 +15,9 @@ var _gem_label: Label
 var _pause_layer: CanvasLayer
 var _pause_panel: Control
 var _resume_btn: Button
+var _hearts: Dictionary = {}
+var _health: Dictionary = {}
+var _invuln: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -54,6 +57,7 @@ func _ready() -> void:
 	_gem_label.position = Vector2(8, 8)
 	_gem_label.text = ""
 	layer.add_child(_gem_label)
+	_build_hearts_ui(layer)
 	await get_tree().process_frame
 	gems_total = get_tree().get_nodes_in_group("gems").size()
 	_update_gem_hud()
@@ -74,10 +78,96 @@ func gem_collected(_gem: Node) -> void:
 	_update_gem_hud()
 	SFX.play_checkpoint(self) # reuse checkpoint ding for gems
 	if _won == false and gems_collected >= gems_total and gems_total > 0:
-		# optional feedback when last gem taken
 		var tw := create_tween()
 		tw.tween_property(_gem_label, "scale", Vector2(1.25, 1.25), 0.12)
 		tw.tween_property(_gem_label, "scale", Vector2(1, 1), 0.18).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+
+func _build_hearts_ui(layer: CanvasLayer) -> void:
+	var heart_scene: PackedScene = load("res://Levels/heart.tscn")
+	for pname in ["Player1", "Player2"]:
+		_health[pname] = 3
+		_invuln[pname] = false
+		var box := HBoxContainer.new()
+		box.name = pname + "_Hearts"
+		box.add_theme_constant_override("separation", 2)
+		if pname == "Player1":
+			box.position = Vector2(8, 28)
+		else:
+			box.position = Vector2(8, 48)
+		layer.add_child(box)
+		_hearts[pname] = []
+		for i in range(3):
+			var h = heart_scene.instantiate()
+			# heart.tscn root is AnimatedSprite2D, wrap in Control for HBox
+			var wrap := Control.new()
+			wrap.custom_minimum_size = Vector2(17, 17)
+			h.position = Vector2(8.5, 8.5)
+			wrap.add_child(h)
+			box.add_child(wrap)
+			_hearts[pname].append(h)
+		# label for player name
+		var lbl := Label.new()
+		lbl.text = pname
+		lbl.add_theme_font_size_override("font_size", 7)
+		lbl.add_theme_color_override("font_outline_color", Color(0.12,0.12,0.12,1))
+		lbl.add_theme_constant_override("outline_size", 2)
+		if pname == "Player1":
+			lbl.position = Vector2(70, 30)
+		else:
+			lbl.position = Vector2(70, 50)
+		layer.add_child(lbl)
+
+func _update_hearts(pname: String) -> void:
+	if not _hearts.has(pname):
+		return
+	var arr = _hearts[pname]
+	var hp = _health[pname]
+	for i in range(arr.size()):
+		var h = arr[i] as AnimatedSprite2D
+		if h == null:
+			continue
+		if i < hp:
+			h.play("default")
+			h.modulate = Color(1,1,1,1)
+		else:
+			# already empty, keep last frame
+			if h.animation != "decrease" or not h.is_playing():
+				h.play("decrease")
+				# jump to last frame if already played
+				if hp < i:
+					h.frame = 4
+
+func take_damage(player: Node, amount: int = 1) -> void:
+	var pname = String(player.name)
+	if not _health.has(pname):
+		return
+	if _invuln.get(pname, false):
+		return
+	_invuln[pname] = true
+	_health[pname] = maxi(0, _health[pname] - amount)
+	_update_hearts(pname)
+	# flash player
+	if player is CanvasItem:
+		var tw := create_tween()
+		tw.tween_property(player, "modulate", Color(1,0.4,0.4,1), 0.08)
+		tw.tween_property(player, "modulate", Color(1,1,1,1), 0.15)
+	SFX.play_hit(self)
+	# if any player hits 0, both respawn and reset hearts
+	var any_dead := false
+	for k in _health:
+		if _health[k] <= 0:
+			any_dead = true
+	if any_dead:
+		await get_tree().create_timer(0.25).timeout
+		for k in _health.keys():
+			_health[k] = 3
+			_update_hearts(k)
+		respawn_both()
+		await get_tree().create_timer(0.4).timeout
+		_invuln[pname] = false
+	else:
+		await get_tree().create_timer(0.8).timeout
+		_invuln[pname] = false
 
 func set_spawn(world_pos: Vector2) -> void:
 	spawn_point = world_pos + Vector2(0, -20.0)

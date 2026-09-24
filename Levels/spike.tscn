@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://hxncoa4wtw0q"]
 
 [ext_resource type="Texture2D" uid="uid://d08gc85kl0aex" path="res://Assets/images/Hazard & Platform/Spike_B.png" id="1_li8fa"]
+[ext_resource type="Script" uid="uid://bgwt4erhamic1" path="res://Scripts/spike.gd" id="2_spike"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6wgmb"]
 atlas = ExtResource("1_li8fa")
@@ -80,6 +81,17 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" unique_id=2082461023]
+[sub_resource type="RectangleShape2D" id="shape_spike"]
+size = Vector2(32, 15)
+
+[node name="Spike" type="Area2D" unique_id=1731244031]
+script = ExtResource("2_spike")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1687278961]
 sprite_frames = SubResource("SpriteFrames_igo0i")
-frame_progress = 0.5520228
+autoplay = "default"
+frame_progress = 0.5947909
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1717815859]
+position = Vector2(0, -4.5)
+shape = SubResource("shape_spike")

@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://6v73y3pnci1l" path="res://Enemy/dino_blue.tscn" id="13_dkv23"]
 [ext_resource type="AudioStream" uid="uid://c2ig5iejgfljh" path="res://Audio/music_savanna.wav" id="13_music"]
 [ext_resource type="Script" uid="uid://cic8seybtqo8w" path="res://Scripts/camera_rig.gd" id="14_cam"]
+[ext_resource type="PackedScene" uid="uid://hxncoa4wtw0q" path="res://Levels/spike.tscn" id="14_x458k"]
 [ext_resource type="PackedScene" uid="uid://rfxw0r3nbp4c" path="res://Levels/gem.tscn" id="15_gem"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7e6fp"]
@@ -679,3 +680,6 @@ patrol_time = 0.8
 position = Vector2(850, 144)
 hop_cooldown = 1.2
 patrol_time = 2.0
+
+[node name="Spike" parent="." unique_id=768194127 instance=ExtResource("14_x458k")]
+position = Vector2(660, 189)

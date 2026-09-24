@@ -81,7 +81,9 @@ func _on_hurtbox_body(body: Node) -> void:
 		return
 	if body.is_in_group("players"):
 		var lvl = get_tree().get_first_node_in_group("level")
-		if lvl != null and lvl.has_method("respawn_both"):
+		if lvl != null and lvl.has_method("take_damage"):
+			lvl.take_damage(body, 1)
+		elif lvl != null and lvl.has_method("respawn_both"):
 			lvl.respawn_both()
 
 func take_hit(from_pos: Vector2) -> bool:
