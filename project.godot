@@ -81,9 +81,18 @@ p2_interact={
 ]
 }
 
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[gui]
+
+theme/custom_theme="res://Theme/pixel_theme.tres"
+theme/custom_font="res://Assets/fonts/BoldPixels.ttf"
 
 [rendering]
 

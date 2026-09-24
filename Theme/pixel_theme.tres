@@ -1,0 +1,12 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="FontFile" path="res://Assets/fonts/BoldPixels.ttf" id="1_yowic"]
+
+[resource]
+default_font = ExtResource("1_yowic")
+default_font_size = 8
+Button/font_sizes/font_size = 8
+Button/fonts/font = ExtResource("1_yowic")
+Label/font_sizes/font_size = 8
+Label/fonts/font = ExtResource("1_yowic")
+RichTextLabel/fonts/font = ExtResource("1_yowic")
